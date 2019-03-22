@@ -1,5 +1,49 @@
 # Changelog
 
+## v1.7.0
+
+This release bumps the Linux kernel to 4.19.25. This change had an impact on how
+the WiFi regulatory database gets loaded into the kernel. Instead of building it
+into the kernel as previously done, the kernel loads it on demand. This requires
+that all WiFi drivers be built as kernel modules so that the database isn't
+loaded before the root filesystem is mounted. If you made a custom system and
+see boot errors about not being able to load the regulatory database, this is
+the problem.
+
+* Updated dependencies
+  * [nerves_system_br v1.7.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.7.0)
+  * Linux 4.19.25 with patches from the Raspberry Pi Foundation
+
+## v1.6.3
+
+ * Updated dependencies
+  * [nerves_system_br v1.6.8](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.6.8)
+  * Erlang 21.2.6
+
+## v1.6.2
+
+* Updated dependencies
+  * [nerves_system_br v1.6.6](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.6.6)
+  * Erlang 21.2.4
+  * boardid 1.5.3
+
+## v1.6.1
+
+* Updated dependencies
+  * [nerves_system_br v1.6.5](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.6.5)
+  * Erlang 21.2.2
+  * boardid 1.5.2
+  * erlinit 1.4.9
+  * OpenSSL 1.1.1a
+  * Linux 4.14.89 with patches from the Raspberry Pi Foundation
+
+* Enhancements
+  * Moved boardid config from inside erlinit.config to /etc/boardid.config
+  * Compile gpiomem into the Linux kernel
+  * Enable pstore, an in-memory buffer that can capture logs, kernel
+    oops and other information when unexpected reboots. The buffer can be
+    recovered on the next boot where it can be inspected.
+
 ## v1.6.0
 
 This pulls in a pending patch in Buildroot to update the version of
