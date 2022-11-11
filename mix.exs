@@ -18,7 +18,7 @@ defmodule NervesSystemRpi3.MixProject do
       description: description(),
       package: package(),
       deps: deps(),
-      aliases: [loadconfig: [&bootstrap/1], docs: ["docs", &copy_images/1]],
+      aliases: [loadconfig: [&bootstrap/1]],
       docs: docs(),
       preferred_cli_env: %{
         docs: :docs,
@@ -66,9 +66,9 @@ defmodule NervesSystemRpi3.MixProject do
 
   defp deps do
     [
-      {:nerves, "~> 1.5.4 or ~> 1.6.0 or ~> 1.7.15", runtime: false},
-      {:nerves_system_br, "1.18.6", runtime: false},
-      {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 1.5.0", runtime: false},
+      {:nerves, "~> 1.5.4 or ~> 1.6.0 or ~> 1.7.15 or ~> 1.8", runtime: false},
+      {:nerves_system_br, "1.21.2", runtime: false},
+      {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 1.6.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
     ]
@@ -84,7 +84,8 @@ defmodule NervesSystemRpi3.MixProject do
     [
       extras: ["README.md", "CHANGELOG.md"],
       main: "readme",
-      source_ref: "r#{@version}",
+      assets: "assets",
+      source_ref: "v#{@version}",
       source_url: @source_url,
       skip_undefined_reference_warnings_on: ["CHANGELOG.md"]
     ]
@@ -108,7 +109,7 @@ defmodule NervesSystemRpi3.MixProject do
       "fwup-revert.conf",
       "fwup.conf",
       "LICENSE",
-      "linux-5.10.defconfig",
+      "linux-5.15.defconfig",
       "mix.exs",
       "nerves_defconfig",
       "post-build.sh",
@@ -117,11 +118,6 @@ defmodule NervesSystemRpi3.MixProject do
       "README.md",
       "VERSION"
     ]
-  end
-
-  # Copy the images referenced by docs, since ex_doc doesn't do this.
-  defp copy_images(_) do
-    File.cp_r("assets", "doc/assets")
   end
 
   defp build_runner_opts() do
